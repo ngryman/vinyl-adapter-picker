@@ -20,3 +20,14 @@ test('register a protocol', t => {
   t.true(src.called)
   // t.true(dest.called)
 })
+
+test('register a default protocol', t => {
+  const src = spy(), dest = spy()
+
+  vauto.register(null, src, dest)
+  vauto.src('*.txt')
+  // vauto.dest('42://*.txt')
+
+  t.true(src.called)
+  // t.true(dest.called)
+})
