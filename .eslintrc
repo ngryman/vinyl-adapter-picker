@@ -1,0 +1,7 @@
+{
+  "extends": "ngryman",
+
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}

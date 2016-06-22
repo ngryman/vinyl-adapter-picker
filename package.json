@@ -1,0 +1,44 @@
+{
+  "name": "vinyl-auto",
+  "version": "0.0.0",
+  "description": "Protocol based vinyl adapter.",
+  "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh/)",
+  "license": "MIT",
+  "repository": "ngryman/vinyl-auto",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | codecov",
+    "check-coverage": "nyc check-coverage --lines 95 --functions 95 --branches 95",
+    "test": "eslint {,lib,test/}*.js && nyc ava"
+  },
+  "precommit": [
+    "check-coverage",
+    "test"
+  ],
+  "keywords": [
+    "vinyl",
+    "vinyl-fs",
+    "vinyl-http",
+    "vinyl-s3",
+    "gulp",
+    "stream"
+  ],
+  "dependencies": {
+    "vinyl-fs": "^2.3.1"
+  },
+  "devDependencies": {
+    "ava": "^0.15.1",
+    "codecov.io": "^0.1.6",
+    "eslint": "^2.10.2",
+    "eslint-config-ngryman": "^1.0.0",
+    "into-stream": "^2.0.1",
+    "nyc": "^6.4.4",
+    "pre-commit": "^1.1.3",
+    "spy": "^0.1.3",
+    "stream-assert": "^2.0.3"
+  }
+}
