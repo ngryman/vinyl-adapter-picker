@@ -16,8 +16,8 @@
     "test": "eslint {,lib,test/}*.js && nyc ava"
   },
   "precommit": [
-    "check-coverage",
-    "test"
+    "test",
+    "check-coverage"
   ],
   "keywords": [
     "vinyl",
