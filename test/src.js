@@ -7,7 +7,7 @@ import vfs from 'vinyl-fs'
 const fixturesPath = path.join(__dirname, 'fixtures')
 
 test('throw error on unknown protocol', t => {
-  t.throws(() => vauto.src('1337://*.txt'), 'Unknown protocol: 1337:')
+  t.throws(() => vauto.src('1337://*.txt'), 'Unknown protocol: 1337')
 })
 
 test.cb('use a registered protocol', t => {
