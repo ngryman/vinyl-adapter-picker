@@ -1,6 +1,6 @@
 # project
 .nyc_output
-.todo
+*.todo
 
 # node
 node_modules
