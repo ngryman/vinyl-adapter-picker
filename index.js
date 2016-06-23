@@ -3,5 +3,6 @@
 module.exports = {
   register: require('./lib/register'),
   unregister: require('./lib/unregister'),
-  src: require('./lib/src')
+  src: require('./lib/src'),
+  dest: require('./lib/dest')
 }
