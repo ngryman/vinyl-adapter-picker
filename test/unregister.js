@@ -3,6 +3,10 @@ import vauto from '../'
 
 function noop() {}
 
+test('throw error on invalid protocol', t => {
+  t.throws(() => vauto.unregister(123), "'protocol' must be a String or null")
+})
+
 test('do nothing if protocol does not exist', t => {
   t.notThrows(() => vauto.unregister('nop'))
 })
@@ -12,7 +16,7 @@ test('unregister a protocol', t => {
   vauto.unregister('toto')
 
   t.throws(() => vauto.src('toto://*.txt'))
-  // t.throws(() => vauto.dest('toto://*.txt'), '')
+  t.throws(() => vauto.dest('toto://*.txt'))
 })
 
 test('unregister a default protocol', t => {
@@ -20,5 +24,5 @@ test('unregister a default protocol', t => {
   vauto.unregister(null)
 
   t.throws(() => vauto.src('*.txt'))
-  // t.throws(() => vauto.dest('toto://*.txt'), '')
+  t.throws(() => vauto.dest('toto://*.txt'))
 })

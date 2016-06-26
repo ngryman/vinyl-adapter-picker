@@ -27,7 +27,10 @@
     "gulp",
     "stream"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "hi5": "^0.1.0",
+    "is-url": "^1.2.1"
+  },
   "devDependencies": {
     "ava": "^0.15.1",
     "codecov.io": "^0.1.6",
