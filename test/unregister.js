@@ -3,10 +3,6 @@ import vauto from '../'
 
 function noop() {}
 
-test('throw error on invalid protocol', t => {
-  t.throws(() => vauto.unregister(123), "'protocol' must be a String or null")
-})
-
 test('do nothing if protocol does not exist', t => {
   t.notThrows(() => vauto.unregister('nop'))
 })

@@ -28,7 +28,6 @@
     "stream"
   ],
   "dependencies": {
-    "hi5": "^0.1.0",
     "is-url": "^1.2.1"
   },
   "devDependencies": {
