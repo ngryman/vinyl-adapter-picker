@@ -1,20 +1,19 @@
 import test from 'ava'
 import vauto from '../'
-import path from 'path'
-import assert from 'stream-assert'
-import vfs from 'vinyl-fs'
+import spy from 'spy'
 
-const fixturesPath = path.join(__dirname, 'fixtures')
+function noop() {}
 
 test('throw error on unknown protocol', t => {
   t.throws(() => vauto.src('1337://*.txt'), 'Unknown protocol: 1337')
 })
 
-test.cb('use a registered protocol', t => {
-  vauto.register('file', vfs.src, vfs.dest)
-  vauto.src('file://*.txt', { cwd: fixturesPath })
-    .pipe(assert.length(2))
-    .pipe(assert.first(d => 'a.txt' === d.relative))
-    .pipe(assert.second(d => 'b.txt' === d.relative))
-    .pipe(assert.end(t.end))
+test('use a registered protocol', t => {
+  const src = spy()
+
+  vauto.add(null, src, noop)
+  vauto.src('*.txt')
+  vauto.remove(null)
+
+  t.true(src.called)
 })
