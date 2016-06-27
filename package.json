@@ -7,8 +7,7 @@
   "repository": "ngryman/vinyl-auto",
   "main": "index.js",
   "files": [
-    "index.js",
-    "lib"
+    "index.js"
   ],
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | codecov",
@@ -34,7 +33,7 @@
   "devDependencies": {
     "ava": "^0.15.1",
     "codecov.io": "^0.1.6",
-    "eslint": "^2.10.2",
+    "eslint": "^2.13.1",
     "eslint-config-ngryman": "^1.1.0",
     "into-stream": "^2.0.1",
     "nyc": "^6.4.4",
