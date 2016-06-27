@@ -1,6 +1,7 @@
 'use strict'
 
 const url = require('url')
+const merge = require('merge-stream')
 
 const handlers = new Map()
 
@@ -31,6 +32,10 @@ function handle(type, glob, options) {
 }
 
 function src(glob, options) {
+  if (Array.isArray(glob)) {
+    const streams = glob.map(glob => handle('src', glob, options))
+    return merge.apply(null, streams)
+  }
   return handle('src', glob, options)
 }
 
@@ -46,4 +51,8 @@ function remove(protocol) {
   handlers.delete(protocol)
 }
 
-module.exports = { src, dest, add, remove }
+function clear() {
+  handlers.clear()
+}
+
+module.exports = { src, dest, add, remove, clear }

@@ -11,9 +11,9 @@ test('throw error on unknown protocol', t => {
 test('use a registered protocol', t => {
   const dest = spy()
 
-  vauto.add(null, noop, dest)
-  vauto.dest('*.txt')
-  vauto.remove(null)
+  vauto.add('file', noop, dest)
+  vauto.dest('file://*.txt', { read: false })
+  vauto.remove('file')
 
-  t.true(dest.called)
+  t.true(dest.calledWith('*.txt', { read: false }))
 })
