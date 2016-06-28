@@ -1,6 +1,6 @@
 {
   "name": "vinyl-adapter-picker",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Protocol based vinyl adapter picker.",
   "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh/)",
   "license": "MIT",
