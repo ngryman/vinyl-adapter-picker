@@ -95,4 +95,6 @@ MIT © [Nicolas Gryman](http://ngryman.sh)
 
 [vinyl adapters]: https://github.com/gulpjs/vinyl-fs#what-is-a-vinyl-adapter
 [globs]: https://github.com/gulpjs/vinyl-fs#globs
+[src]: #srcglobs-options-and-destglobs-options
+[dest]: #srcglobs-options-and-destglobs-options
 [File]: https://github.com/gulpjs/vinyl#file
