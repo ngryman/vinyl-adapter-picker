@@ -1,10 +1,10 @@
 {
-  "name": "vinyl-auto",
+  "name": "vinyl-adapter-picker",
   "version": "0.0.0",
-  "description": "Protocol based vinyl adapter.",
+  "description": "Protocol based vinyl adapter picker.",
   "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh/)",
   "license": "MIT",
-  "repository": "ngryman/vinyl-auto",
+  "repository": "ngryman/vinyl-picker",
   "main": "index.js",
   "files": [
     "index.js"
@@ -21,8 +21,11 @@
   "keywords": [
     "vinyl",
     "adapter",
+    "picker",
     "automatic",
     "protocol",
+    "url",
+    "uri",
     "vinyl-fs",
     "gulp",
     "stream"

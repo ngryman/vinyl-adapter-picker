@@ -1,5 +1,5 @@
 import test from 'ava'
-import vauto from '../'
+import vp from '../'
 import spy from 'spy'
 import intoStream from 'into-stream'
 import assert from 'stream-assert'
@@ -7,15 +7,15 @@ import assert from 'stream-assert'
 function noop() {}
 
 test('throw error on unknown protocol', t => {
-  t.throws(() => vauto.src('1337://*.txt'), 'Unknown protocol: 1337')
+  t.throws(() => vp.src('1337://*.txt'), 'Unknown protocol: 1337')
 })
 
 test('use a registered protocol', t => {
   const src = spy()
 
-  vauto.add('file', src, noop)
-  vauto.src('file://*.txt', { read: false })
-  vauto.remove('file')
+  vp.add('file', src, noop)
+  vp.src('file://*.txt', { read: false })
+  vp.remove('file')
 
   t.true(src.calledWith('*.txt', { read: false }))
 })
@@ -23,20 +23,20 @@ test('use a registered protocol', t => {
 test('use default protocol', t => {
   const src = spy()
 
-  vauto.add(null, src, noop)
-  vauto.src('*.txt')
-  vauto.remove(null)
+  vp.add(null, src, noop)
+  vp.src('*.txt')
+  vp.remove(null)
 })
 
 test.cb('accept a glob array', t => {
   const srcFile = () => intoStream('file')
   const srcHttp = () => intoStream('http')
 
-  vauto.add('file', srcFile, noop)
-  vauto.add('http', srcHttp, noop)
-  vauto.src(['file://*.txt', 'http://*.txt'])
+  vp.add('file', srcFile, noop)
+  vp.add('http', srcHttp, noop)
+  vp.src(['file://*.txt', 'http://*.txt'])
     .pipe(assert.first(d => t.is(d.toString(), 'file')))
     .pipe(assert.second(d => t.is(d.toString(), 'http')))
     .pipe(assert.end(t.end))
-  vauto.clear()
+  vp.clear()
 })
