@@ -11,7 +11,7 @@ test('throw error on unknown protocol', t => {
 test('use a registered protocol', t => {
   const dest = spy()
 
-  vp.add('file', noop, dest)
+  vp.add('file', { src: noop, dest })
   vp.dest('file://*.txt', { read: false })
   vp.remove('file')
 

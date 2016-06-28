@@ -3,19 +3,20 @@
 const url = require('url')
 const merge = require('merge-stream')
 
-/** Map of protocol handlers. */
-const handlers = new Map()
+/** Map of adapters. */
+const adapters = new Map()
 
 /**
- * Parse a glob into a `uri`.
+ * Parse a string uri into an object uri.
  *
  * @protected
- * @param  {string} glob
+ * @param  {string} uri
  * @return {url}
  */
-function parse(glob) {
-  // parse protocol, removing trailing :
-  const uri = url.parse(glob)
+function parse(uri) {
+  uri = url.parse(uri)
+
+  // remove protocol trailing `:`
   if (uri.protocol) {
     uri.protocol = uri.protocol.slice(0, -1)
   }
@@ -30,7 +31,7 @@ function parse(glob) {
 
 /**
  * Handle the given glob.
- * Internally it gets the associated protcol handler and call either `src` or `dest`.
+ * Internally it gets the associated adapter and call either `src` or `dest`.
  *
  * @protected
  * @param  {('src'|'dest')} type
@@ -40,66 +41,65 @@ function parse(glob) {
  */
 function handle(type, glob, options) {
   const uri = parse(glob)
-  const handler = handlers.get(uri.protocol)
+  const adapter = adapters.get(uri.protocol)
 
-  if (!handler) {
+  if (!adapter) {
     throw new Error(`Unknown protocol: ${uri.protocol}`)
   }
 
-  return handler[type](uri.path, options)
+  return adapter[type](uri.path, options)
 }
 
 /**
- * Create a vinyl stream given a glob using the appropriate vinyl registered adapter.
+ * Create a stream of vinyl files given globs using the appropriate adapter.
  *
- * @param  {string|array} glob
+ * @param  {string|array} globs
  * @param  {object}       [options]
  * @return {stream}
  */
-function src(glob, options) {
-  if (Array.isArray(glob)) {
-    const streams = glob.map(glob => handle('src', glob, options))
+function src(globs, options) {
+  if (Array.isArray(globs)) {
+    const streams = globs.map(glob => handle('src', glob, options))
     return merge.apply(null, streams)
   }
-  return handle('src', glob, options)
+  return handle('src', globs, options)
 }
 
 /**
- * Create a vinyl stream given a glob using the appropriate vinyl registered adapter.
+ * Create a stream of vinyl files given an uri using the appropriate adapter.
  *
- * @param  {string|array} glob
- * @param  {object}       [options]
+ * @param  {string} uri
+ * @param  {object} [options]
  * @return {stream}
  */
-function dest(glob, options) {
-  return handle('dest', glob, options)
+function dest(uri, options) {
+  return handle('dest', uri, options)
 }
 
 /**
- * Add a new protocol handlers.
+ * Add a new adapter.
  *
  * @param {string|null} protocol
- * @param {function}    src
- * @param {function}    dest
+ * @param {object}      adapter
  */
-function add(protocol, src, dest) {
-  handlers.set(protocol, { src, dest })
+function add(protocol, adapter) {
+  adapters.set(protocol, adapter)
 }
 
 /**
- * Remove protocol handlers.
+ * Remove an adapter.
  *
  * @param {string|null} protocol
  */
 function remove(protocol) {
-  handlers.delete(protocol)
+  adapters.delete(protocol)
 }
 
 /**
- * Clear all registered protocol handlers.
+ * Clear all registered adapters.
  */
 function clear() {
-  handlers.clear()
+  adapters.clear()
 }
 
 module.exports = { src, dest, add, remove, clear }

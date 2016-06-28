@@ -13,7 +13,7 @@ test('throw error on unknown protocol', t => {
 test('use a registered protocol', t => {
   const src = spy()
 
-  vp.add('file', src, noop)
+  vp.add('file', { src, dest: noop })
   vp.src('file://*.txt', { read: false })
   vp.remove('file')
 
@@ -23,7 +23,7 @@ test('use a registered protocol', t => {
 test('use default protocol', t => {
   const src = spy()
 
-  vp.add(null, src, noop)
+  vp.add(null, { src, dest: noop })
   vp.src('*.txt')
   vp.remove(null)
 })
@@ -32,8 +32,8 @@ test.cb('accept a glob array', t => {
   const srcFile = () => intoStream('file')
   const srcHttp = () => intoStream('http')
 
-  vp.add('file', srcFile, noop)
-  vp.add('http', srcHttp, noop)
+  vp.add('file', { src: srcFile, dest: noop })
+  vp.add('http', { src: srcHttp, dest: noop })
   vp.src(['file://*.txt', 'http://*.txt'])
     .pipe(assert.first(d => t.is(d.toString(), 'file')))
     .pipe(assert.second(d => t.is(d.toString(), 'http')))
