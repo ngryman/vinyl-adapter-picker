@@ -1,5 +1,7 @@
 # vinyl-adapter-picker
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ngryman/vinyl-adapter-picker.svg)](https://greenkeeper.io/)
+
 > Protocol based vinyl adapter picker.
 
 [![travis][travis-image]][travis-url] [![codecov][codecov-image]][codecov-url]
